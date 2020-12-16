@@ -46,7 +46,11 @@
 
 
         // Sự kiện thêm mới sản phẩm đặt dưới đây
-        
+        if(isset($_POST["add_product"])){
+            if(count($error)===0){
+                $count = $_product->addNewProduct($pname, $pthumb,$pprice,$psale,$pstock,$phighlight,$producerid,$categoryid,$statusid);
+            }
+        }
         //=========================================
 
         if(isset($_POST["confirm_edit_product"])){
