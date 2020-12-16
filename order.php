@@ -38,7 +38,13 @@
 
         // Code nhận Request xóa sản phẩm khỏi giỏ hàng đặt ở dưới đây
 
-        //=========================================================
+        if(isset($_POST["removeId"])){
+            echo "Xóa khỏi giỏ hàng";
+            $rmid = $_POST["removeId"];
+            $tempCart = $_SESSION["cart"];
+            unset($tempCart[$rmid]);
+            $_SESSION["cart"]=$tempCart;
+        }
 
 
         // Đặt hàng, thêm vào DB đặt ở dưới đây
