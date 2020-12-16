@@ -44,6 +44,37 @@
         // Đặt hàng, thêm vào DB đặt ở dưới đây
 
         //======================================================
+            $name="";
+            $phone="";
+            $email="";
+            $deadline="";
+            $address="";
+            $services = new DBServices();
+            if(isset($_POST["buying"])){
+                if(isset($_SESSION["cart"])){
+                    $cartArr = $_SESSION["cart"];
+
+                    $deadline = $_POST["order_deadline"];
+                    $payment = $_POST["payments"];
+                    $address=$_POST["location"][0]=="other"?$_POST["customer_address"]:$_POST["location"][0];
+                    $err=array();
+
+
+                    if(count($err)===0 && isset($cartArr)){
+                        $cemail = isset($_SESSION['user']["email"])?$_SESSION['user']["email"]:"";
+                        $cid=$_customer-> getCIdByEmail($cemail);
+                        if($cid!==""){
+                            $isSuccess=$_order->createOrder($cid, $deadline,$address,$cartArr);
+                            if($isSuccess){
+                                echo "<h1 class='text--notify'>Đặt hàng thành công, quay về <a href='index.php'>Trang chủ</a></h1>";
+                                unset($_SESSION["cart"]);
+                                unset($cartArr);
+                                exit();
+                            }
+                        }
+                    }
+                }
+            }
            
 
         
